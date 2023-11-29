@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  initial-scenario:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -54,3 +54,51 @@ jobs:
           ank run workload trailer_connected_provider --runtime podman --config $'image: sdvblueprint.azurecr.io/sdvblueprint/in-vehicle-stack/trailer_connected_provider:0.1.0\ncommandOptions: ["--network", "host", "--name", "trailer_connected_provider"]' --agent agent_A
       - run: ank get workloads
       - run: cat /tmp/logs/*.log
+  containers:
+    runs-on: ubuntu-latest
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+    steps:
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver-opts: network=host
+      -
+        name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      -
+        name: Build Ankaios DevContainer
+        uses: docker/build-push-action@v4
+        with:
+          context: eclipse-ankaios/.devcontainer
+          push: false
+      -
+        name: Build Python Provider DevContainer
+        uses: docker/build-push-action@v4
+        with:
+          context: in-vehicle-stack/python_provider/.devcontainer
+          push: false
+
+      -
+        name: Build Python Trailer Connected Provider DevContainer
+        uses: docker/build-push-action@v4
+        with:
+          context: in-vehicle-stack/sample_trailer_connected_provider/.devcontainer
+          push: false
+#      -
+#        name: lacheck
+#        working-directory: test
+#        run: |
+#          docker run -v $(pwd):/workdir localhost:5000/name/app:latest lacheck minimal-article.tex
