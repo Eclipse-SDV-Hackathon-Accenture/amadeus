@@ -54,6 +54,58 @@ jobs:
           ank run workload trailer_connected_provider --runtime podman --config $'image: sdvblueprint.azurecr.io/sdvblueprint/in-vehicle-stack/trailer_connected_provider:0.1.0\ncommandOptions: ["--network", "host", "--name", "trailer_connected_provider"]' --agent agent_A
       - run: ank get workloads
       - run: cat /tmp/logs/*.log
+  devcontainers:
+    runs-on: ubuntu-latest
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+    steps:
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          driver-opts: network=host
+      -
+        name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      -
+        name: Build Ankaios DevContainer
+        uses: docker/build-push-action@v4
+        with:
+          context: eclipse-ankaios
+          file: eclipse-ankaios/.devcontainer/Dockerfile
+          push: false
+      -
+        name: Build Python Provider DevContainer
+        uses: docker/build-push-action@v4
+        with:
+          context: in-vehicle-stack/python_provider
+          file: in-vehicle-stack/python_provider/.devcontainer/Dockerfile
+          push: false
+      -
+        name: Build Python Trailer Connected Provider DevContainer
+        uses: docker/build-push-action@v4
+        with:
+          context: in-vehicle-stack/sample_trailer_connected_provider
+          file: in-vehicle-stack/sample_trailer_connected_provider/.devcontainer/Dockerfile
+          push: false
+      -
+        name: Build Python DT Provider DevContainer
+        uses: docker/build-push-action@v4
+        with:
+          context: in-vehicle-stack/scenarios/smart_trailer_use_case/digital_twin_providers/python_provider
+          file: in-vehicle-stack/scenarios/smart_trailer_use_case/digital_twin_providers/python_provider/.devcontainer/devcontainer.json
+          push: false
   containers:
     runs-on: ubuntu-latest
     services:
@@ -78,32 +130,27 @@ jobs:
           key: ${{ runner.os }}-buildx
       - name: Set up Git repository
         uses: actions/checkout@v4
-      - name: Debug
-        run: |
-          ls -la eclipse-ankaios
-          ls -la eclipse-ankaios/.devcontainer
       -
-        name: Build Ankaios DevContainer
+        name: Build DT Python Provider
         uses: docker/build-push-action@v4
         with:
-          context: eclipse-ankaios
-          file: eclipse-ankaios/.devcontainer/Dockerfile
-          push: false
+          context: in-vehicle-stack/scenarios/smart_trailer_use_case/digital_twin_providers/python_provider
+          push: true
+          tags: localhost:5000/name/dtprovider:latest
       -
-        name: Build Python Provider DevContainer
+        name: Build Trailer Connected Provider
         uses: docker/build-push-action@v4
         with:
-          context: in-vehicle-stack/python_provider
-          file: in-vehicle-stack/python_provider/.devcontainer/Dockerfile
-          push: false
-
+          context: in-vehicle-stack/scenarios/smart_trailer_use_case/digital_twin_providers/trailer_connected_provider
+          push: true
+          tags: localhost:5000/name/tcprovider:latest
       -
-        name: Build Python Trailer Connected Provider DevContainer
+        name: Build Trailer Properties Provider
         uses: docker/build-push-action@v4
         with:
-          context: in-vehicle-stack/sample_trailer_connected_provider
-          file: in-vehicle-stack/sample_trailer_connected_provider/.devcontainer/Dockerfile
-          push: false
+          context: in-vehicle-stack/scenarios/smart_trailer_use_case/digital_twin_providers/trailer_properties_provider
+          push: true
+          tags: localhost:5000/name/tpprovider:latest
 #      -
 #        name: lacheck
 #        working-directory: test
