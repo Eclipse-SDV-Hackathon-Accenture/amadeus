@@ -5,10 +5,6 @@ def main():
     request_msg.entity_id = "1111"
     response_msg = dt.GetResponse()
     response_msg.property_value = 12
-<<<<<<< HEAD
-=======
-    dt
->>>>>>> 09fd7f1 (added python sample)
     print(request_msg)
     print(response_msg)
     
