@@ -1,5 +1,11 @@
-# Digital Twin Operations
-# Converted by ChatGPT 4.0
+# Digital Twin Operations (python)
+# Converted by ChatGPT 4.0 from a RUST file
+# Comment by ChatGPT
+# In this Python code:
+# Each Rust mod is translated into a Python class.
+# The Rust string constants (pub const) are translated into class variables in Python.
+# The structure and naming convention are preserved to maintain readability and consistency with the original Rust code.
+#
 class DigitalTwinOperation:
     GET = "Get"
     SET = "Set"
