@@ -78,19 +78,23 @@ jobs:
           key: ${{ runner.os }}-buildx
       - name: Set up Git repository
         uses: actions/checkout@v4
+      - name: Debug
+        run: |
+          ls -la eclipse-ankaios
+          ls -la eclipse-ankaios/.devcontainer
       -
         name: Build Ankaios DevContainer
         uses: docker/build-push-action@v4
         with:
           context: eclipse-ankaios
-          file: .devcontainer/Dockerfile
+          file: eclipse-ankaios/.devcontainer/Dockerfile
           push: false
       -
         name: Build Python Provider DevContainer
         uses: docker/build-push-action@v4
         with:
           context: in-vehicle-stack/python_provider
-          file: .devcontainer/Dockerfile
+          file: in-vehicle-stack/python_provider/.devcontainer/Dockerfile
           push: false
 
       -
@@ -98,7 +102,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: in-vehicle-stack/sample_trailer_connected_provider
-          file: .devcontainer/Dockerfile
+          file: in-vehicle-stack/sample_trailer_connected_provider/.devcontainer/Dockerfile
           push: false
 #      -
 #        name: lacheck
