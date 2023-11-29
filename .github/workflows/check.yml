@@ -82,20 +82,23 @@ jobs:
         name: Build Ankaios DevContainer
         uses: docker/build-push-action@v4
         with:
-          context: eclipse-ankaios/.devcontainer
+          context: eclipse-ankaios
+          file: .devcontainer/Dockerfile
           push: false
       -
         name: Build Python Provider DevContainer
         uses: docker/build-push-action@v4
         with:
-          context: in-vehicle-stack/python_provider/.devcontainer
+          context: in-vehicle-stack/python_provider
+          file: .devcontainer/Dockerfile
           push: false
 
       -
         name: Build Python Trailer Connected Provider DevContainer
         uses: docker/build-push-action@v4
         with:
-          context: in-vehicle-stack/sample_trailer_connected_provider/.devcontainer
+          context: in-vehicle-stack/sample_trailer_connected_provider
+          file: .devcontainer/Dockerfile
           push: false
 #      -
 #        name: lacheck
