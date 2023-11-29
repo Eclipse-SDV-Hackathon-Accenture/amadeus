@@ -109,14 +109,31 @@ echo '============='
         then
           echo "Trailer is connected! Starting workloads to manage it"
 
-          # Start up the other workloads using podman"
-          CFG_PROVIDER=$(get_container "trailer_properties_provider" "0.1.0")
-          CFG_APP=$(get_container "smart_trailer_application" "0.1.0")
+          TRAILER_TYPE=$(echo $GET_OUTPUT | jq -r '.trailerType')
 
-          ank run workload trailer_properties_provider --runtime podman --config "$CFG_PROVIDER" --agent agent_A
+          # Should be implemented as strategy pattern, but keep things simple for a moment
+          if [[ "$TRAILER_TYPE" -eq "1" ]]
+          then
+
+            # Start up the other workloads using podman
+            CFG_PROVIDER=$(get_container "trailer_properties_provider" "0.1.0")
+
+            ank run workload trailer_properties_provider --runtime podman --config "$CFG_PROVIDER" --agent agent_A
+
+            echo "Called Ankaios to start the Trailer Properties Digital Twin Provider, Trailer Payload Digital Twin Provider and Smart Trailer Application"
+          elif [[ "$TRAILER_TYPE" -eq "3" ]]
+          then
+            # Start up the other workloads using podman
+            CFG_PROVIDER=$(get_container "trailer_properties_provider" "0.1.0")
+
+            ank run workload trailer_properties_provider --runtime podman --config "$CFG_PROVIDER" --agent agent_A
+
+            echo "Called Ankaios to start the Trailer Properties Digital Twin Provider, Trailer Fridge Digital Twin Provider and Smart Trailer Application"
+          fi
+
+          CFG_APP=$(get_container "smart_trailer_application" "0.1.0")
           ank run workload smart_trailer_application --runtime podman --config "$CFG_APP" --agent agent_A
 
-          echo "Called Ankaios to start the Trailer Properties Digital Twin Provider and Smart Trailer Application"
           echo "Check Ankaios status with 'ank get workloads'"
           exit 0
         fi
