@@ -48,9 +48,9 @@ jobs:
       - name: Start trailer applications
         run: |
           cd in-vehicle-stack/scenarios/smart_trailer_use_case/scripts
-          ./start_trailer_applications_ankaios.sh & > /tmp/start_trailer_applications_ankaios.log
+          ./start_trailer_applications_ankaios.sh & > /tmp/logs/start_trailer_applications_ankaios.log
       - name: Connect trailer
         run: |
           ank run workload trailer_connected_provider --runtime podman --config $'image: sdvblueprint.azurecr.io/sdvblueprint/in-vehicle-stack/trailer_connected_provider:0.1.0\ncommandOptions: ["--network", "host", "--name", "trailer_connected_provider"]' --agent agent_A
       - run: ank get workloads
-      - run: cat /tmp/logs/start_trailer_applications_ankaios.log
+      - run: cat /tmp/logs/*.log
