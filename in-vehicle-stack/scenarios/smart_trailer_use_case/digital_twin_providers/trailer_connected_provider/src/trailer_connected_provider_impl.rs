@@ -5,6 +5,7 @@
 //! Module containing gRPC service implementation based on [`interfaces::digital_twin_get_provider.proto`].
 //!
 //! Provides a gRPC endpoint for getting if the trailer is connected
+use log::debug;
 use smart_trailer_interfaces::digital_twin_get_provider::v1::digital_twin_get_provider_server::DigitalTwinGetProvider;
 use smart_trailer_interfaces::digital_twin_get_provider::v1::{GetRequest, GetResponse};
 use tonic::{Request, Response, Status};
@@ -21,7 +22,10 @@ impl DigitalTwinGetProvider for TrailerConnectedProviderImpl {
         // To expand this use case, we could simulate the trailer being disconnected as well
         let get_response = GetResponse {
             property_value: true,
+            trailer_type: 1
         };
+        println!("{}", get_response.property_value);
+        println!("{}", get_response.trailer_type);
         Ok(Response::new(get_response))
     }
 }

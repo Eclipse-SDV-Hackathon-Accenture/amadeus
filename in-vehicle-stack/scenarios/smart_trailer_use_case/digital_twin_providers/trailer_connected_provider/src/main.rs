@@ -43,18 +43,33 @@ async fn register_entity(
         uri: provider_uri.to_string(),
         context: trailer_v1::trailer::is_trailer_connected::ID.to_string(),
     };
-    let entity_access_info = EntityAccessInfo {
+
+    let which_trailer_type_endpoint_info = EndpointInfo {
+        protocol: digital_twin_protocol::GRPC.to_string(),
+        operations: vec![digital_twin_operation::GET.to_string()],
+        uri: provider_uri.to_string(),
+        context: trailer_v1::trailer::which_trailer_type::ID.to_string(),
+    };
+
+    let trailer_connected_access_info = EntityAccessInfo {
         name: trailer_v1::trailer::is_trailer_connected::NAME.to_string(),
         id: trailer_v1::trailer::is_trailer_connected::ID.to_string(),
         description: trailer_v1::trailer::is_trailer_connected::DESCRIPTION.to_string(),
         endpoint_info_list: vec![is_trailer_connected_endpoint_info],
     };
 
+    let trailer_type_access_info = EntityAccessInfo {
+        name: trailer_v1::trailer::which_trailer_type::NAME.to_string(),
+        id: trailer_v1::trailer::which_trailer_type::ID.to_string(),
+        description: trailer_v1::trailer::which_trailer_type::DESCRIPTION.to_string(),
+        endpoint_info_list: vec![which_trailer_type_endpoint_info],
+    };
+
     let mut client = InvehicleDigitalTwinClient::connect(invehicle_digital_twin_uri.to_string())
         .await
         .map_err(|e| Status::internal(e.to_string()))?;
     let request = tonic::Request::new(RegisterRequest {
-        entity_access_info_list: vec![entity_access_info],
+        entity_access_info_list: vec![trailer_connected_access_info, trailer_type_access_info],
     });
     let _response = client.register(request).await?;
 
@@ -76,9 +91,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Setup the HTTP server.
     let addr: SocketAddr = PROVIDER_AUTHORITY.parse()?;
-    let provider_impl = TrailerConnectedProviderImpl::default();
+    let connected_provider_impl = TrailerConnectedProviderImpl::default();
     let server_future = Server::builder()
-        .add_service(DigitalTwinGetProviderServer::new(provider_impl))
+        .add_service(DigitalTwinGetProviderServer::new(connected_provider_impl))
         .serve(addr);
     info!("The HTTP server is listening on address '{PROVIDER_AUTHORITY}'");
 

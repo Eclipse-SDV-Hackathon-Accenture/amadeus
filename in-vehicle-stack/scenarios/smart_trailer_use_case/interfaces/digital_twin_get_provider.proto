@@ -23,4 +23,5 @@ message GetRequest {
 
 message GetResponse {
   bool property_value = 1;
+  int32 trailer_type = 2;
 }

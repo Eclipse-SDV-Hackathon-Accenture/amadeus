@@ -18,6 +18,33 @@
             "name": "IsTrailerConnected",
             "description": "Is trailer connected?",
             "schema": "boolean"
+          },
+          {
+            "@type": "Property",
+            "@id": "dtmi:sdv:Trailer:WhichTrailerType;1",
+            "name": "WhichTrailerType",
+            "description": "Tells trailer type",
+            "schema": {
+              "@type": "Enum",
+              "valueSchema": "integer",
+              "enumValues": [
+                {
+                  "name": "Platform",
+                  "displayName": "Platform Trailer",
+                  "enumValue": 1
+                },
+                {
+                  "name": "Container",
+                  "displayName": "Container Trailer",
+                  "enumValue": 2
+                },
+                {
+                  "name": "Fridge",
+                  "displayName": "Refrigerator Trailer",
+                  "enumValue": 3
+                }
+              ]
+            }
           }
       ]
     }

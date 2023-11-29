@@ -100,6 +100,10 @@ do
         GET_METHOD="Get"
         GET_OUTPUT=$(grpcurl -import-path $GET_PROTO_PATH -proto $GET_PROTO -plaintext $GET_SERVER $GET_SERVICE/$GET_METHOD 2>&1)
 
+echo '============='
+echo $GET_OUTPUT
+echo '============='
+
         # For now, this always returns true, this can be expanded to simulate connecting and disconnecting the trailer
         if [[ $(echo $GET_OUTPUT | jq -r '.propertyValue') ]]
         then
