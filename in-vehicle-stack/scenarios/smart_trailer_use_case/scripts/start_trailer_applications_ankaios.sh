@@ -95,7 +95,7 @@ do
           echo "Trailer is connected! Starting workloads to manage it"
 
           # Start up the other workloads using podman
-          CFG_PROVIDER=$'image: smart_trailer_properties:0.1\ncommandOptions: ["--network", "host", "--name", "trailer_properties_provider"]'
+          CFG_PROVIDER=$'image: sdvblueprint.azurecr.io/sdvblueprint/in-vehicle-stack/smart_trailer_properties:0.1.0\ncommandOptions: ["--network", "host", "--name", "trailer_properties_provider"]'
           CFG_APP=$'image: sdvblueprint.azurecr.io/sdvblueprint/in-vehicle-stack/smart_trailer_application:0.1.0\ncommandOptions: ["--network", "host", "--name", "smart_trailer_application"]'
 
           ank run workload trailer_properties_provider --runtime podman --config "$CFG_PROVIDER" --agent agent_A
