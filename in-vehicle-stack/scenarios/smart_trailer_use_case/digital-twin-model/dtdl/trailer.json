@@ -5,11 +5,18 @@
       "@id": "dtmi:sdv:Trailer;1",
       "description": "Trailer used for transporting cargo",
       "contents": [
-        {
+          {
             "@type": "Property",
             "@id": "dtmi:sdv:Trailer:Weight;1",
             "name": "TrailerWeight",
             "description": "The weight of the trailer",
+            "schema": "integer"
+          },
+          {
+            "@type": "Property",
+            "@id": "dtmi:sdv:Trailer:Temperature;1",
+            "name": "TrailerTemperature",
+            "description": "The temperature inside the trailer",
             "schema": "integer"
           },
           {

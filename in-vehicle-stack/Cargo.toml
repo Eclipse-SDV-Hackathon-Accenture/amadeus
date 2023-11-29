@@ -12,6 +12,7 @@ members = [
   "scenarios/smart_trailer_use_case/applications/smart_trailer_application",
   "scenarios/smart_trailer_use_case/digital_twin_providers/common",
   "scenarios/smart_trailer_use_case/digital_twin_providers/trailer_connected_provider",
+  "scenarios/smart_trailer_use_case/digital_twin_providers/trailer_fridge_provider",
   "scenarios/smart_trailer_use_case/digital_twin_providers/trailer_properties_provider",
   "scenarios/smart_trailer_use_case/proto_build",
 ]

@@ -19,6 +19,13 @@ pub mod trailer {
         pub type TYPE = i32;
     }
 
+    pub mod trailer_temperature {
+        pub const ID: &str = "dtmi:sdv:Trailer:Temperature;1";
+        pub const NAME: &str = "TrailerTemperature";
+        pub const DESCRIPTION: &str = "The temperature inside the trailer";
+        pub type TYPE = i32;
+    }
+
     pub mod is_trailer_connected {
         pub const ID: &str = "dtmi:sdv:Trailer:IsTrailerConnected;1";
         pub const NAME: &str = "IsTrailerConnected";

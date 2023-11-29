@@ -70,7 +70,7 @@ ENDPOINTS=$(echo $OUTPUT | jq -c '.entityAccessInfo.endpointInfoList[]')
 
 # Helper to build a container name to run
 function get_container () {
-  echo -n "image: ${IMAGE_REGISTRY}$1:$2${NL}commandOptions: [\"--network\", \"host\", \"--name\", \"$1\"]"
+  echo -n "image: $3$1:$2${NL}commandOptions: [\"--network\", \"host\", \"--name\", \"$1\"]"
 }
 
 
@@ -114,25 +114,40 @@ echo '============='
           # Should be implemented as strategy pattern, but keep things simple for a moment
           if [[ "$TRAILER_TYPE" -eq "1" ]]
           then
-
+            APP="trailer_fridge_provider"
+            
             # Start up the other workloads using podman
-            CFG_PROVIDER=$(get_container "trailer_properties_provider" "0.1.0")
+            CFG_PROVIDER=$(get_container "$APP" "0.1.0" "localhost/")
 
-            ank run workload trailer_properties_provider --runtime podman --config "$CFG_PROVIDER" --agent agent_A
+            echo $CFG_PROVIDER
 
+            ank run workload $APP --runtime podman --config "$CFG_PROVIDER" --agent agent_A
+            
             echo "Called Ankaios to start the Trailer Properties Digital Twin Provider, Trailer Payload Digital Twin Provider and Smart Trailer Application"
           elif [[ "$TRAILER_TYPE" -eq "3" ]]
           then
+            APP="trailer_fridge_provider"
             # Start up the other workloads using podman
-            CFG_PROVIDER=$(get_container "trailer_properties_provider" "0.1.0")
+            CFG_PROVIDER=$(get_container "$APP" "0.1.0" "localhost/")
 
-            ank run workload trailer_properties_provider --runtime podman --config "$CFG_PROVIDER" --agent agent_A
+            ank run workload $APP --runtime podman --config "$CFG_PROVIDER" --agent agent_A
 
             echo "Called Ankaios to start the Trailer Properties Digital Twin Provider, Trailer Fridge Digital Twin Provider and Smart Trailer Application"
           fi
 
-          CFG_APP=$(get_container "smart_trailer_application" "0.1.0")
-          ank run workload smart_trailer_application --runtime podman --config "$CFG_APP" --agent agent_A
+          sleep 1
+
+          APP="trailer_properties_provider"
+          # Start up default trailer properties provider
+          CFG_PROVIDER=$(get_container "$APP" "0.1.0" "$IMAGE_REGISTRY")
+          ank run workload $APP --runtime podman --config "$CFG_PROVIDER" --agent agent_A
+
+          sleep 1
+
+          # Start up application for monitoring the trailer properties
+          APP="smart_trailer_application"
+          CFG_APP=$(get_container "$APP" "0.1.0" "$IMAGE_REGISTRY")
+          ank run workload $APP --runtime podman --config "$CFG_APP" --agent agent_A
 
           echo "Check Ankaios status with 'ank get workloads'"
           exit 0
