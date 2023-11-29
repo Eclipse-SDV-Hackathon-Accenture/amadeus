@@ -1,9 +1,14 @@
-Self orchestration
-The apps are always loaded, but based on demand, faster (lower latency) and more precise (int, float, real) and feature rich (clear sight, rain, snow, fog) apps are being dynamically loaded 
+Author: Arndt
+"Self orchestration"
+presented Wed 29.11.2023 10:00 to the team - Feedback: Why? Too complex! We will first try to get our stuff to run...
+
+All Workloads will be always loaded. 
+Based on demand, faster (lower latency) and more precise (int, float, real) and feature rich (clear sight, rain, snow, fog) more feature-rich apps are being dynamically loaded on demaand. 
+The damands can come from the single workload and/or the orchestrator.
+
+[Arndt]: To be reviewed...
 
 Advantages:
-
-Democratic
 The problem is solved at the root and only the orchestration is centralized 
 The app knows best what is required 
 The ps command of the car always returns the same number of apps/processes 
