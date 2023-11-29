@@ -1,5 +1,5 @@
 # Maestro Challenge 🚗💻🎶
-- [About](#about)
+ - [About](#about)
 - [Sample Scenarios](#sample-scenarios)
     - [Provided Sample Scenario](#provided-sample-scenario)
     - [Other Sample Scenarios](#other-sample-scenarios)
