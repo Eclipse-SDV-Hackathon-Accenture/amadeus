@@ -54,3 +54,13 @@ jobs:
           ank run workload trailer_connected_provider --runtime podman --config $'image: sdvblueprint.azurecr.io/sdvblueprint/in-vehicle-stack/trailer_connected_provider:0.1.0\ncommandOptions: ["--network", "host", "--name", "trailer_connected_provider"]' --agent agent_A
       - run: ank get workloads
       - run: cat /tmp/logs/*.log
+  merge_conflict_job:
+    # This ensures that no git merge conflict markers (<<<, ...) are contained
+    name: Find merge conflicts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          show-progress: 'false'
+      - name: Merge Conflict finder
+        uses: olivernybroe/action-conflict-finder@v4.0
