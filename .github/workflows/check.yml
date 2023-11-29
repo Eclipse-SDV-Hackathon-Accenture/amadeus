@@ -102,3 +102,13 @@ jobs:
 #        working-directory: test
 #        run: |
 #          docker run -v $(pwd):/workdir localhost:5000/name/app:latest lacheck minimal-article.tex
+  merge_conflict_job:
+    # This ensures that no git merge conflict markers (<<<, ...) are contained
+    name: Find merge conflicts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          show-progress: 'false'
+      - name: Merge Conflict finder
+        uses: olivernybroe/action-conflict-finder@v4.0
