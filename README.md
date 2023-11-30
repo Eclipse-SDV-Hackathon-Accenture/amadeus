@@ -22,7 +22,7 @@ See <https://github.com/Eclipse-SDV-Hackathon-Accenture/amadeus/actions> for the
 
 ## Architecture
 
-![](Archtektur_Amadeus.jpg)
+![](Archtektur_Amadeus_2.jpg)
 
 ## Links
 
