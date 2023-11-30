@@ -11,7 +11,7 @@
 
 ARG RUST_VERSION=1.72.1
 FROM docker.io/library/rust:${RUST_VERSION}-slim-bullseye AS build
-ARG APP_NAME=trailer_connected_provider
+ARG APP_NAME=trailer_fridge_connected_provider
 # Add Build dependencies.
 RUN apt update -y && apt upgrade -y && apt install -y \
     cmake \
@@ -68,8 +68,6 @@ COPY --from=build /sdv/service /sdv/
 
 # Expose the port that the application listens on.
 EXPOSE 4020
-
-ENV TRAILER_TYPE=2
 
 # What the container should run when it is started.
 CMD ["/sdv/service"]

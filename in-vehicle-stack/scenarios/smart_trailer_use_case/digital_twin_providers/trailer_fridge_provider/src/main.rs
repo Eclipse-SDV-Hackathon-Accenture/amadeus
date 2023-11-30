@@ -91,17 +91,14 @@ fn start_trailer_temp_data_stream(min_interval_ms: u64) -> watch::Receiver<i32> 
             debug!("Completed the publish request");
 
             // Calculate the new temp.
-            // It bounces back and forth between 1000 and 2000 kilograms.
-            // It increases in increments of 500 to simulate a large amount of cargo being loaded
-            // And decreases in increments of 50 to simulate smaller deliveries being made
             if is_temp_increasing {
-                if temp == -1 {
+                if temp > -1 {
                     is_temp_increasing = false;
                     temp -= 2;
                 } else {
                     temp += 2;
                 }
-            } else if temp == -30 {
+            } else if temp < -30 {
                 is_temp_increasing = true;
                 temp += 3;
             } else {

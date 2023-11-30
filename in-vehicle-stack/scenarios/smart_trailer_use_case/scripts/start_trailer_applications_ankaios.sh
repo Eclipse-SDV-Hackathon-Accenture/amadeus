@@ -114,7 +114,7 @@ echo '============='
           # Should be implemented as strategy pattern, but keep things simple for a moment
           if [[ "$TRAILER_TYPE" -eq "1" ]]
           then
-            APP="trailer_fridge_provider"
+            APP="trailer_platform_provider"
             
             # Start up the other workloads using podman
             CFG_PROVIDER=$(get_container "$APP" "0.1.0" "localhost/")
@@ -123,7 +123,7 @@ echo '============='
 
             ank run workload $APP --runtime podman --config "$CFG_PROVIDER" --agent agent_A
             
-            echo "Called Ankaios to start the Trailer Properties Digital Twin Provider, Trailer Payload Digital Twin Provider and Smart Trailer Application"
+            echo "Called Ankaios to start the Trailer Properties Digital Twin Provider, Trailer Platform Digital Twin Provider and Smart Trailer Application"
           elif [[ "$TRAILER_TYPE" -eq "3" ]]
           then
             APP="trailer_fridge_provider"
@@ -133,6 +133,8 @@ echo '============='
             ank run workload $APP --runtime podman --config "$CFG_PROVIDER" --agent agent_A
 
             echo "Called Ankaios to start the Trailer Properties Digital Twin Provider, Trailer Fridge Digital Twin Provider and Smart Trailer Application"
+          else
+            echo "Called Ankaios with unknown proviver, start only the Trailer Properties Digital Twin Provider and Smart Trailer Application"
           fi
 
           sleep 1
