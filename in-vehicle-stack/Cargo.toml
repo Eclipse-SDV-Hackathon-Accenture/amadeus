@@ -12,6 +12,7 @@ members = [
   "scenarios/smart_trailer_use_case/applications/smart_trailer_application",
   "scenarios/smart_trailer_use_case/digital_twin_providers/common",
   "scenarios/smart_trailer_use_case/digital_twin_providers/trailer_connected_provider",
+  "scenarios/smart_trailer_use_case/digital_twin_providers/trailer_fridge_connected_provider",
   "scenarios/smart_trailer_use_case/digital_twin_providers/trailer_fridge_provider",
   "scenarios/smart_trailer_use_case/digital_twin_providers/trailer_properties_provider",
   "scenarios/smart_trailer_use_case/proto_build",
@@ -19,6 +20,7 @@ members = [
 
 [workspace.dependencies]
 env_logger= "0.10.0"
+futures = "0.3.7"
 log = "0.4.20"
 paho-mqtt = "0.12"
 parking_lot = "0.12.1"
