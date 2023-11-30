@@ -24,7 +24,7 @@ See <https://github.com/Eclipse-SDV-Hackathon-Accenture/amadeus/actions> for the
 
 ![](Archtektur_Amadeus_2.jpg)
 
-## Timing Diagram
+## Sequence  Diagram
 
 ![](Timing_Amadeus.jpg)
 
