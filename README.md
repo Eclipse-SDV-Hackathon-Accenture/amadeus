@@ -20,6 +20,10 @@ Two different trailers: One basic trailer and one with a fridge.
 
 See <https://github.com/Eclipse-SDV-Hackathon-Accenture/amadeus/actions> for the current checks.
 
+## Architecture
+
+![](Archtektur_Amadeus.jpg)
+
 ## Links
 
 - The basic settinsg is written at <https://github.com/Eclipse-SDV-Hackathon-Accenture/maestro-challenge>.
