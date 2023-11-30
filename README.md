@@ -24,6 +24,10 @@ See <https://github.com/Eclipse-SDV-Hackathon-Accenture/amadeus/actions> for the
 
 ![](Archtektur_Amadeus_2.jpg)
 
+## Timing Diagram
+
+![](Timing_Amadeus.jpg)
+
 ## Links
 
 - The basic settinsg is written at <https://github.com/Eclipse-SDV-Hackathon-Accenture/maestro-challenge>.
