@@ -32,7 +32,7 @@ RUN sanitized=$(echo "${APP_NAME}" | tr -dc '^[a-zA-Z_0-9-]+$'); \
 }
 
 # Build the application
-RUN --mount=type=cache,sharing=private,target=./target/release/ cargo build --release --bin "${APP_NAME}" && \
+RUN --mount=type=cache,target=./target/release/ cargo build --release --bin "${APP_NAME}" && \
     cp ./target/release/"${APP_NAME}" /sdv/service
 
 ################################################################################
@@ -68,6 +68,8 @@ COPY --from=build /sdv/service /sdv/
 
 # Expose the port that the application listens on.
 EXPOSE 4020
+
+ENV TRAILER_TYPE=2
 
 # What the container should run when it is started.
 CMD ["/sdv/service"]
