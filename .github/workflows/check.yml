@@ -84,14 +84,14 @@ jobs:
           ls -la eclipse-ankaios/.devcontainer
       -
         name: Build Ankaios DevContainer
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: eclipse-ankaios
           file: eclipse-ankaios/.devcontainer/Dockerfile
           push: false
       -
         name: Build Python Provider DevContainer
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: in-vehicle-stack/python_provider
           file: in-vehicle-stack/python_provider/.devcontainer/Dockerfile
@@ -99,7 +99,7 @@ jobs:
 
       -
         name: Build Python Trailer Connected Provider DevContainer
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: in-vehicle-stack/sample_trailer_connected_provider
           file: in-vehicle-stack/sample_trailer_connected_provider/.devcontainer/Dockerfile
