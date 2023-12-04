@@ -13,7 +13,7 @@ jobs:
         with:
           show-progress: ''
       - name: markdownlint-cli2-action
-        uses: DavidAnson/markdownlint-cli2-action@v9
+        uses: DavidAnson/markdownlint-cli2-action@v14
         with:
           globs: |
             **/*.md
